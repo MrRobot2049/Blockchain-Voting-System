@@ -1,0 +1,4 @@
+await contract.admin();
+const contract = await ethers.getContractAt("Voting", "0x1b65C6676D1692B8B334c83A4959BD3606fadD94");
+await contract.getCandidateCount();
+const contract = await ethers.getContractAt("Voting", "0x3F19a218feF44052fBbD2D9C7B243A5310508684");

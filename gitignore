@@ -1,0 +1,24 @@
+# Node modules
+node_modules/
+**/node_modules/
+
+# Build outputs
+build/
+dist/
+
+# React build
+voting-dapp/build/
+.vscode/
+.DS_Store
+
+# Hardhat artifacts
+artifacts/
+cache/
+typechain-types/
+
+# Ignition deployments (local chain state)
+ignition/deployments/
+
+# Environment files
+.env
+.env.local

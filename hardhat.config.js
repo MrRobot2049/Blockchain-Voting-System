@@ -26,7 +26,7 @@ module.exports = {
       url: "HTTP://127.0.0.1:8545", // 👈 replace with Ganache RPC SERVER
       chainId: 1337, // 👈 replace with your Ganache chainId
       accounts: [
-        "0xbb622fa36422936b80c21a41e346c8ae3b5856f459d2e25f581fd4bee11bc976"
+        "0x______"
       ],
     },
   },

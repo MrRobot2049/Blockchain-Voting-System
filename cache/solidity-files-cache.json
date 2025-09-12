@@ -36,6 +36,42 @@
       "artifacts": [
         "Voting"
       ]
+    },
+    "/Users/gouthamnaroju/Desktop/ref/Blockchain-Voting-System/contracts/Voting.sol": {
+      "lastModificationDate": 1757612459661,
+      "contentHash": "fcb34c43deb27d8a4a220721dccb0e2f",
+      "sourceName": "contracts/Voting.sol",
+      "solcConfig": {
+        "version": "0.8.20",
+        "settings": {
+          "evmVersion": "paris",
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "Voting"
+      ]
     }
   }
 }

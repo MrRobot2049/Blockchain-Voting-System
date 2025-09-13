@@ -36,21 +36,22 @@ This project ensures secure, transparent, and tamper-proof elections by leveragi
 ---
 
 ## 📂 Project Structure
-    Blockchain-Voting-System/
-    │── contracts/ # Solidity smart contracts (Voting.sol)
-    │── ignition/ # Hardhat Ignition deployment modules
-    │── voting-dapp/ # React frontend (MetaMask + ethers.js)
-    │ ├── src/
-    │ │ ├── App.js # Main React frontend
-    │ │ ├── config.js # Contract address + ABI
-    │ │ └── contracts/ # ABI JSON files
-    │ ├── package.json # frontend dependencies
-    │ └── ...
-    │── package.json # backend (Hardhat) dependencies
-    │── hardhat.config.js
-    │── README.md
-    │── .gitignore
-
+```
+Blockchain-Voting-System/
+│── contracts/          # Solidity smart contracts (Voting.sol)
+│── ignition/           # Hardhat Ignition deployment modules
+│── voting-dapp/        # React frontend (MetaMask + ethers.js)
+│   ├── src/
+│   │   ├── App.js      # Main React frontend
+│   │   ├── config.js   # Contract address + ABI
+│   │   └── contracts/  # ABI JSON files
+│   ├── package.json    # frontend dependencies
+│   └── ...
+│── package.json        # backend (Hardhat) dependencies
+│── hardhat.config.js
+│── README.md
+│── .gitignore
+```
 
 ---
 
@@ -73,43 +74,125 @@ This project ensures secure, transparent, and tamper-proof elections by leveragi
 
 ## 🖥️ Setup & Run
 
-### Prerequisites
-- [Node.js](https://nodejs.org/)  
-- [MetaMask](https://metamask.io/) (Browser Extension)   
-- [Ganache](https://trufflesuite.com/ganache/)  
-- [Hardhat](https://hardhat.org/)  
+### 🔹 Prerequisites
+- [Node.js](https://nodejs.org/) (>= 16.x)  
+- [MetaMask](https://metamask.io/) (Browser Extension)  
+- [Ganache](https://trufflesuite.com/ganache/) (Local Ethereum blockchain)  
+- [Hardhat](https://hardhat.org/) (Contract development framework)  
 
 ---
 
 ### 1. Clone Repository
 ```bash
-git clone https://github.com/MrRobot2049/Blockchain-Voting-System.git
-
+git clone https://github.com/your-username/Blockchain-Voting-System.git
 cd Blockchain-Voting-System
 ```
-### 2. Install Dependencies
-Install backend (Solidity + Hardhat-related packages) dependencies from root package.json
-```bash
-npm install 
 
+### 2. Install Backend (Hardhat) Dependencies
+```bash
+npm install
 ```
-Install frontend (React, Ethers.js, and other frontend libraries) dependencies from voting-dapp/package.json
+
+### 3. Install Frontend (React) Dependencies
 ```bash
 cd voting-dapp
 npm install
 ```
-### 3. Compile & Deploy Smart Contract
-Start Ganache (default: http://127.0.0.1:7545).
+
+### 4. Compile Smart Contract
 ```bash
 npx hardhat compile
-npx hardhat ignition deploy ignition/modules/Voting.js --network ganache
 ```
-Copy the deployed contract address into:
-voting-dapp/src/config.js
-### 4. Run React Frontend
+
+### 5. Configure Hardhat for Ganache
+In `hardhat.config.js`:
+```js
+require("@nomicfoundation/hardhat-toolbox");
+
+module.exports = {
+  solidity: "0.8.20",
+  networks: {
+    ganache: {
+      url: "http://127.0.0.1:7545",
+      chainId: 1337,
+      accounts: ["0xYOUR_ADMIN_PRIVATE_KEY"]
+    },
+  },
+};
+```
+
+### 6. Deploy Smart Contract
+```bash
+npx hardhat ignition deploy ./ignition/modules/Voting.js --network ganache
+```
+
+If redeploy needed:
+```bash
+rm -rf ignition/deployments/chain-1337
+npx hardhat ignition deploy ./ignition/modules/Voting.js --network ganache
+```
+
+### 7. Copy ABI to Frontend
+```bash
+mkdir -p voting-dapp/src/contracts
+cp artifacts/contracts/Voting.sol/Voting.json voting-dapp/src/contracts/Voting.json
+```
+
+### 8. Update Frontend Config
+`voting-dapp/src/config.js`:
+```js
+import VotingArtifact from "./contracts/Voting.json";
+
+const config = {
+  contractAddress: "0xPUT_YOUR_DEPLOYED_ADDRESS_HERE",
+  contractABI: VotingArtifact.abi
+};
+
+export default config;
+```
+
+### 9. Start the Frontend
 ```bash
 cd voting-dapp
 npm start
 ```
+Visit 👉 `http://localhost:3000`
+
+---
+
+## 🔹 Workflow
+
+1. **Admin**  
+   - Registers voters with address + secret.  
+   - Starts election.  
+
+2. **Voter**  
+   - Connects wallet via MetaMask.  
+   - Casts vote using secret.  
+
+3. **Admin**  
+   - Ends election.  
+
+4. **Anyone**  
+   - Views final results.  
+
+---
+
+## 🔎 Troubleshooting
+
+- **Cannot connect to Ganache** → Check Ganache RPC URL/chainId in `hardhat.config.js`.  
+- **BAD_DATA error** → ABI/address mismatch, re-copy `Voting.json` and update `config.js`.  
+- **CALL_EXCEPTION (vote failed)** → Ensure voting started, voter registered, correct secret, not already voted.  
+- **ENS error** → Only use valid `0x...` addresses.  
+- **MetaMask pending requests** → Close popups, reconnect wallet.  
+
+---
+
 ## 📜 License
-MIT License © 2025 Goutham Naroju
+MIT License © 2025 Goutham Naroju  
+
+---
+
+## ✨ Author
+👨‍💻 **Goutham Naroju**  
+B.Tech Mathematics & Computing, IIT Ropar  
